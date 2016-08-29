@@ -25,7 +25,7 @@ var sdk = {
   }
 };
 
-var apis = [
+[
   'checkJsApi',
   'onMenuShareTimeline',
   'onMenuShareAppMessage',
@@ -62,10 +62,7 @@ var apis = [
   'chooseCard',
   'openCard',
   'chooseWXPay'
-];
-
-for (var i in apis) {
-  var api = apis[i];
+].forEach(function (api) {
   sdk[api] = function (params) {
     params = params || {};
     return new Promise(function (resolve, reject) {
@@ -73,10 +70,10 @@ for (var i in apis) {
       params.fail = reject;
       params.cancel = reject;
       sdk.ready().then(function (wx) {
-        wx[key](params);
+        wx[api](params);
       });
     });
   }
-}
+});
 
 module.exports = sdk.default = sdk;
